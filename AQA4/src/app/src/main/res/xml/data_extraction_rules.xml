@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   Пример файла правил извлечения данных. При необходимости
+   раскомментируйте и настройте правила.
+   Подробнее: https://developer.android.com/about/versions/12/backup-restore#xml-changes
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- TODO: Используйте <include> и <exclude>, чтобы определить данные для резервного копирования.
+        <include .../>
+        <exclude .../>
+        -->
+    </cloud-backup>
+    <!--
+    <device-transfer>
+        <include .../>
+        <exclude .../>
+    </device-transfer>
+    -->
+</data-extraction-rules>

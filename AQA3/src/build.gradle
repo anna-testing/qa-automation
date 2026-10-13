@@ -1,0 +1,92 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '4.3.0'
+}
+
+group = 'portfolio.aqa'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+sourceSets {
+    main {
+        java.srcDirs = ['main/java']
+    }
+    test {
+        java.srcDirs = ['test/java']
+        resources.srcDirs = ['test/resources']
+    }
+}
+
+def selenideVersion = '7.5.1'
+def cucumberVersion = '7.20.1'
+def allureVersion = '2.29.0'
+def junitVersion = '5.11.3'
+
+dependencies {
+    implementation "com.codeborne:selenide:${selenideVersion}"
+
+    testImplementation platform("org.junit:junit-bom:${junitVersion}")
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.platform:junit-platform-suite'
+    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}"
+    testImplementation "io.qameta.allure:allure-cucumber7-jvm:${allureVersion}"
+}
+
+allure {
+    version = '2.29.0'
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+
+    ['browser', 'browserSize', 'headless', 'timeout', 'testUrl'].each { propertyName ->
+        systemProperty propertyName, System.getProperty(propertyName, project.findProperty(propertyName).toString())
+    }
+    if (System.getProperty('webdriver.chrome.driver')) {
+        systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver')
+    }
+    if (System.getProperty('webdriver.gecko.driver')) {
+        systemProperty 'webdriver.gecko.driver', System.getProperty('webdriver.gecko.driver')
+    }
+
+    systemProperty 'allure.results.directory', layout.buildDirectory.dir('allure-results').get().asFile.absolutePath
+    systemProperty 'cucumber.filter.tags', System.getProperty('cucumber.filter.tags', 'not @diagnostic')
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        exceptionFormat 'full'
+    }
+}
+
+tasks.register('cucumberTest', Test) {
+    description = 'Runs only Cucumber scenarios.'
+    group = 'verification'
+    useJUnitPlatform {
+        includeEngines 'cucumber'
+    }
+    systemProperty 'cucumber.filter.tags', 'not @diagnostic'
+}
+
+tasks.named('test') {
+    exclude '**/DiagnosticCucumberRunner.class'
+}
+
+tasks.register('diagnosticCucumberTest', Test) {
+    description = 'Runs the intentionally failing scenario used to demonstrate Allure diagnostics.'
+    group = 'verification'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    include '**/DiagnosticCucumberRunner.class'
+    useJUnitPlatform()
+    systemProperty 'cucumber.filter.tags', '@diagnostic'
+    ignoreFailures = true
+}

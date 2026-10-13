@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Gherkin AI review</title>
+  <style>
+    body { margin: 0; padding: 40px; background: #f4f6fb; color: #172033; font: 21px/1.45 Arial, sans-serif; }
+    article { max-width: 1300px; margin: auto; background: white; padding: 36px 44px; border-radius: 18px; box-shadow: 0 8px 30px #ccd3e0; }
+    h1 { color: #243b7a; } h2 { margin-top: 28px; color: #334e9b; }
+    pre { white-space: pre-wrap; background: #101827; color: #eef3ff; padding: 22px; border-radius: 12px; }
+    .tag { color: #8b2db8; font-weight: bold; }
+  </style>
+</head>
+<body><article>
+  <h1>Задание 3 — генерация Gherkin с AI</h1>
+  <h2>Первый промпт — <span class="tag">manual-solution</span></h2>
+  <pre>Напиши Gherkin-сценарий на русском языке для проверки успешной авторизации на сайте saucedemo.com. Используй ключевые слова: Допустим, Когда, И, Тогда.</pre>
+  <h2>Первый результат</h2>
+  <pre>Функционал: Авторизация
+  Сценарий: Успешный вход
+    Допустим пользователь находится на сайте
+    Когда пользователь вводит правильные данные
+    И нажимает кнопку входа
+    Тогда открывается главная страница</pre>
+  <p>Результат слишком общий: данные и ожидаемая страница не определены.</p>
+  <h2>Уточнённый промпт — <span class="tag">ai-assisted-solution</span></h2>
+  <pre>Напиши Gherkin-сценарии на русском языке для SauceDemo. Страница входа открывается по /; пользователь вводит standard_user в user-name, secret_sauce в password, нажимает Login и должен увидеть заголовок Products. Добавь негативную авторизацию таблицей примеров. Описывай поведение, не CSS-селекторы; используй параметризуемые шаги, Предысторию и Структуру сценария.</pre>
+  <h2>Итог AI-ревью</h2>
+  <p>Сформированы переиспользуемые параметризованные шаги, Предыстория и таблица примеров. Формулировки синхронизированы с Step Definitions; CSS-детали из feature-файла удалены.</p>
+</article></body></html>
+

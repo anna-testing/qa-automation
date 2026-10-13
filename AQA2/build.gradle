@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group = 'portfolio'
+version = '1.0-SNAPSHOT'
+
+repositories { mavenCentral() }
+
+java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+
+dependencies {
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0' // для 1 задания
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.3' // для 1 задания
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0' // для 3 задания
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0' // для 3 задания
+    implementation 'com.google.code.gson:gson:2.12.1' // для 3 задания
+    compileOnly 'org.projectlombok:lombok:1.18.38' // сокращение шаблонного кода DTO
+    annotationProcessor 'org.projectlombok:lombok:1.18.38' //сокращение шаблонного кода DTO
+
+    testImplementation platform('org.junit:junit-bom:5.12.1') // для запуска тестов
+    testImplementation 'org.junit.jupiter:junit-jupiter' // для запуска тестов
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // для запуска тестов
+    testImplementation 'io.rest-assured:rest-assured:5.5.1' // для 2 задания
+    testImplementation 'org.assertj:assertj-core:3.27.3' //AssertJ — это библиотека для более понятных тестовых проверок с fluent-API
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'file.encoding', 'UTF-8'
+}

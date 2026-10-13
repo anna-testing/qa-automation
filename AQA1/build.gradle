@@ -1,0 +1,78 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+group = 'ru.portfolio.example'
+version = '1.0-SNAPSHOT'
+
+ext {
+    allureVersion = "2.29.0"
+    junitVersion = "5.9.1"
+    lombokVersion = '1.18.34'
+}
+
+compileJava {
+    options.release = 21
+}
+
+compileTestJava {
+    options.release = 21
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+dependencies {
+
+    //utils
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    //JUnit
+    implementation(platform('org.junit:junit-bom:5.10.3'))
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.11.3'
+    implementation('org.junit.jupiter:junit-jupiter')
+    testImplementation 'org.junit.platform:junit-platform-console-standalone:1.11.3'
+    
+    // JUnit Platform Suite API
+    testImplementation 'org.junit.platform:junit-platform-suite-api:1.11.3'
+    testImplementation 'org.junit.platform:junit-platform-suite-engine:1.11.3'
+
+    // TestNG
+    testImplementation 'org.testng:testng:7.10.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task testNG(type: Test) {
+    useTestNG()
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+// ai-assisted-solution: отдельная Gradle-задача для первого TestNG XML-сьюта.
+task testNGFirstSuite(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testng-first-suite.xml'
+    }
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+// ai-assisted-solution: отдельная Gradle-задача для второго TestNG XML-сьюта.
+task testNGSecondSuite(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testng-second-suite.xml'
+    }
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+}

@@ -1,0 +1,5 @@
+.gradle/
+build/
+
+# Корневой .gitignore исключает все JAR, но Gradle Wrapper должен храниться в репозитории.
+!gradle/wrapper/gradle-wrapper.jar

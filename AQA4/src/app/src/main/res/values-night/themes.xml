@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Основная тема приложения. -->
+    <style name="Theme.EspressoAppForMentoring" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Основной фирменный цвет. -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Дополнительный фирменный цвет. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Цвет строки состояния. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Дополнительные настройки темы можно добавить здесь. -->
+    </style>
+</resources>

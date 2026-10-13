@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   Пример файла правил резервного копирования. При необходимости
+   раскомментируйте и настройте правила.
+   Подробнее: https://developer.android.com/guide/topics/data/autobackup
+   Примечание: этот файл игнорируется на устройствах с API ниже 31.
+   См. https://developer.android.com/about/versions/12/backup-restore
+-->
+<full-backup-content>
+    <!--
+   <include domain="sharedpref" path="."/>
+   <exclude domain="sharedpref" path="device.xml"/>
+-->
+</full-backup-content>

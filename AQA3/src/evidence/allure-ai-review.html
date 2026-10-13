@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Allure failure AI review</title>
+  <style>
+    body { margin: 0; padding: 40px; background: #f4f6fb; color: #172033; font: 20px/1.42 Arial, sans-serif; }
+    article { max-width: 1300px; margin: auto; background: white; padding: 34px 42px; border-radius: 18px; box-shadow: 0 8px 30px #ccd3e0; }
+    h1 { color: #243b7a; } h2 { color: #334e9b; }
+    pre { white-space: pre-wrap; background: #101827; color: #eef3ff; padding: 20px; border-radius: 12px; }
+    .answer { border-left: 6px solid #38a169; padding-left: 20px; }
+  </style>
+</head>
+<body><article>
+  <h1>Задание 4 — AI-анализ падения Allure</h1>
+  <h2>Фрагмент реального stack trace</h2>
+  <pre>Element not found {[data-test='error']}
+Expected: visible (because ошибка авторизации должна отображаться)
+Timeout: 10 s.
+Caused by: NoSuchElementException: Unable to locate element
+at portfolio.aqa.pages.LoginPage.shouldShowError(LoginPage.java:24)
+at portfolio.aqa.steps.SauceDemoSteps.intentionallyFailForAllureDiagnostics(SauceDemoSteps.java:91)</pre>
+  <h2>Промпт</h2>
+  <pre>Проанализируй этот stack trace и скриншот страницы Products. Объясни, почему упал UI-тест, отдели дефект приложения от ошибки теста и предложи минимальное исправление. Учти, что сценарий помечен @diagnostic и создан намеренно.</pre>
+  <h2>Ответ AI</h2>
+  <div class="answer"><p>Это ошибка теста, а не приложения. После успешного входа браузер находится на странице Products, но шаг вызывает LoginPage.shouldShowError() и ищет сообщение авторизации [data-test='error']. На странице каталога такого элемента нет, поэтому Selenide ожидает 10 секунд и завершает шаг с NoSuchElementException.</p>
+  <p>Минимальное исправление: удалить неверный шаг или заменить его проверкой существующего элемента каталога. Сценарий @diagnostic следует исключить из регрессионного запуска.</p></div>
+  <p><strong>Оценка:</strong> объяснение совпало с намеренно внесённой причиной; URL/DOM/скриншот всё равно должен проверить инженер.</p>
+</article></body></html>
